@@ -129,7 +129,7 @@ int buzzer_map(int active_points) {
         case 1011: {note = NOTE_LA_2;  break;}
         case  111: {note = NOTE_SI_2;  break;}
         case 1111: {note = NOTE_DO_3;  break;} 
-        default: {note = NOTE_DO_1;}
+        default:   {note = NOTE_DO_1;}
     }
     return note;
 }
@@ -197,7 +197,7 @@ void loop() {
     for (int i = 0; i <= 3; i++) {
         if (buttons[i].has_changed()) {
             client.publish(buttons[i].get_topic(), buttons[i].get_string_state());
-            digitalWrite(leds[i].get_pin(), buttons[i].get_state()); // Led control
+            //digitalWrite(leds[i].get_pin(), buttons[i].get_state()); // Led control
         }
     }
 
@@ -206,11 +206,16 @@ void loop() {
         tone(GPIO_BUZZER, buzzer_map(active_leds));
     }
     else {
+        noTone(GPIO_BUZZER);
+    }
+    /**
+    else {
         // Tone buzzer based on the active buttons
         active_buttons = 1000*buttons[0].get_state() + 100*buttons[1].get_state() + 10*buttons[2].get_state() + 1*buttons[3].get_state();
         if (active_buttons > 0) tone(GPIO_BUZZER, buzzer_map(active_buttons));
         else noTone(GPIO_BUZZER);
     }
+    **/
 
     unsigned long now = millis();
     if (now - lastMsg > 2000) {
