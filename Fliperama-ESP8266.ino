@@ -160,10 +160,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
     if (active_leds > 0) leds_working = true;
     else leds_working = false;
     Serial.println(active_leds);
-    // if (active_leds > 0) tone(GPIO_BUZZER, buzzer_map(active_leds), 250);
-    // if (active_leds > 0) tone(GPIO_BUZZER, buzzer_map(active_leds), 200);
-    // else noTone(GPIO_BUZZER);
-    // delay(250);
 }
 
 void setup() {
